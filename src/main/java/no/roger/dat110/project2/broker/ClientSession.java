@@ -12,11 +12,9 @@ public class ClientSession {
 	public ClientSession(String user, Connection connection) {
 		this.user = user;
 		this.connection = connection;
-
 	}
 
 	public void disconnect() {
-
 		if (connection != null) {
 			connection.close();
 		}
@@ -31,20 +29,16 @@ public class ClientSession {
 	}
 	
 	public void send(Message message) {
-
 		MessageUtils.send(connection, message);
 	}
 
 	public boolean hasData() {
-
 		return connection.hasData();
 	}
 
 	public Message receive() {
-
 		Message msg = MessageUtils.receive(connection);
 
 		return msg;
 	}
-
 }
