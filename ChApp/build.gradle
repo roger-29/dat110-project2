@@ -35,5 +35,9 @@ dependencies {
 	compile project(":project2")
 }
 
+javafx {
+    modules = [ 'javafx.controls' ]
+}
+
 // Define the main class for the application
 mainClassName = 'no.roger.dat110.ChApp.App'
