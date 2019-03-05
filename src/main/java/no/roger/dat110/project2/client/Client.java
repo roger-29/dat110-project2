@@ -46,53 +46,28 @@ public class Client extends Thread {
 	}
 
 	public void disconnect() {
-
-		DisconnectMsg msg = new DisconnectMsg(user);
-
-		send(msg);
+		send(new DisconnectMsg(user));
 
 		connection.close();
-
 	}
 
 	public void subscribe(String topic) {
-
-		SubscribeMsg msg = new SubscribeMsg(user, topic);
-
-		send(msg);
-
+		send(new SubscribeMsg(user, topic));
 	}
 
 	public void unsubscribe(String topic) {
-
-		UnsubscribeMsg msg = new UnsubscribeMsg(user, topic);
-
-		send(msg);
-
+		send(new UnsubscribeMsg(user, topic));
 	}
 
 	public void publish(String topic, String message) {
-
-		PublishMsg msg = new PublishMsg(user, topic, message);
-
-		send(msg);
-
+		send(new PublishMsg(user, topic, message));
 	}
 
 	public void createTopic(String topic) {
-
-		CreateTopicMsg msg = new CreateTopicMsg(user, topic);
-
-		send(msg);
-
+		send(new CreateTopicMsg(user, topic));
 	}
 
 	public void deleteTopic(String topic) {
-
-		DeleteTopicMsg msg = new DeleteTopicMsg(user, topic);
-
-		send(msg);
-
+		send(new DeleteTopicMsg(user, topic));
 	}
-
 }

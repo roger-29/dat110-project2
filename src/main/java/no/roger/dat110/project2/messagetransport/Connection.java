@@ -1,11 +1,9 @@
 package no.roger.dat110.project2.messagetransport;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-
 
 public class Connection {
 
@@ -20,7 +18,6 @@ public class Connection {
 			this.socket = socket;
 
 			outStream = new DataOutputStream(socket.getOutputStream());
-
 			inStream = new DataInputStream (socket.getInputStream());
 
 		} catch (IOException ex) {
@@ -32,7 +29,6 @@ public class Connection {
 
 	public void send(TransportMessage message) {
 
-		// TODO 
 		// encapsulate the data contained in the message and write to the output stream
 		
 		try {
@@ -46,7 +42,6 @@ public class Connection {
 			System.out.println("Connection: " + ex.getMessage());
 			ex.printStackTrace();
 		}
-
 	}
 
 	public boolean hasData () {
@@ -71,7 +66,6 @@ public class Connection {
 		TransportMessage message;
 		byte[] recvbuf;
 		
-		// TODO
 		// read a segment from the input stream and decapsulate into message
 		
 		recvbuf = new byte[MessageConfig.SEGMENTSIZE];

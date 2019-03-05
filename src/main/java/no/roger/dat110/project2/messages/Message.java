@@ -5,16 +5,16 @@ public abstract class Message {
 	private MessageType type;
 	private String user;
 	
-	public Message() {
-		
-	}
+	public Message() {}
 	
 	public Message(MessageType type, String user) {
 		this.type = type;
 		this.user = user;
 	}
 
-	public MessageType getType() { return this.type; }
+	public MessageType getType() { 
+		return this.type; 
+	}
 
 	
 	public String getUser() {
@@ -24,7 +24,5 @@ public abstract class Message {
 	@Override
 	public String toString() {
 		return "Message [type=" + type + ", user=" + user + "]";
-	};
-	
-	
+	}
 }
