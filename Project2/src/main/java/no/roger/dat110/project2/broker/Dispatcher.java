@@ -2,6 +2,7 @@ package no.roger.dat110.project2.broker;
 
 import java.util.Set;
 import java.util.Collection;
+import java.util.ArrayList;
 
 import no.roger.dat110.project2.common.Logger;
 import no.roger.dat110.project2.common.Stopable;
@@ -38,8 +39,8 @@ public class Dispatcher extends Stopable {
 
 		try {
 			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		} catch (InterruptedException ex) {
+			ex.printStackTrace();
 		}
 	}
 
@@ -80,21 +81,33 @@ public class Dispatcher extends Stopable {
 		}
 	}
 
-	// called from Broker after having established the underlying connection
+	// Called from Broker after having established the underlying connection
 	public void onConnect(ConnectMsg msg, Connection connection) {
 
 		String user = msg.getUser();
 
 		Logger.log("onConnect:" + msg.toString());
 
-		storage.addClientSession(user, connection);
+		if (storage.getSession(user) == null) {
+			storage.addClientSession(user, connection);
+		} else {
+			storage.reconnectUser(user, connection);
+
+			ArrayList<Message> messages = storage.getMessageBuffer(user);
+
+			for (Message message : messages) {
+				storage.getSession(user).send(message);
+			}
+
+			storage.emptyMessageBuffer(user);
+		}
 	}
 
-	// called by dispatch upon receiving a disconnect message 
+	// Called by dispatch upon receiving a disconnect message
 	public void onDisconnect(DisconnectMsg msg) {
 		Logger.log("onDisconnect:" + msg.toString());
 
-		storage.removeClientSession(msg.getUser());
+		storage.disconnectUser(msg.getUser());
 	}
 
 	public void onCreateTopic(CreateTopicMsg msg) {
@@ -115,7 +128,7 @@ public class Dispatcher extends Stopable {
 		String topic = msg.getTopic();
 		String user = msg.getUser();
 
-		storage.addSubscriber(user, topic);	
+		storage.addSubscriber(user, topic);
 	}
 
 	public void onUnsubscribe(UnsubscribeMsg msg) {
@@ -123,7 +136,7 @@ public class Dispatcher extends Stopable {
 
 		String topic = msg.getTopic();
 		String user = msg.getUser();
-		
+
 		storage.removeSubscriber(user, topic);
 	}
 
@@ -134,9 +147,12 @@ public class Dispatcher extends Stopable {
 
 		Set<String> subscribers = storage.getSubscribers(topic);
 
-		for (String s : subscribers) {
-			ClientSession cs = storage.getSession(s);
-			cs.send(msg);
+		for (String user : subscribers) {
+			if (storage.isConnected(user)) {
+				storage.getSession(user).send(msg);
+			} else {
+				storage.addMessageToBuffer(user, msg);
+			}
 		}
 	}
 }
