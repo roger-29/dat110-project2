@@ -15,7 +15,6 @@ public class MessagingServer {
 		} catch (IOException ex) {
 			System.out.println("Messaging server (port " + port + "): " + ex.getMessage());
 			ex.printStackTrace();
-			System.exit(1);
 		}
 	}
 
@@ -35,7 +34,7 @@ public class MessagingServer {
 			ex.printStackTrace();
 			// TODO: closing welcomeSocket
 
-			return null;
+			//return null;
 		}
 
 		return connection;
