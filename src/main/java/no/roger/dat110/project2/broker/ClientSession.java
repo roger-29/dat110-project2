@@ -27,7 +27,7 @@ public class ClientSession {
 	public void setUser(String user) {
 		this.user = user;
 	}
-	
+
 	public void send(Message message) {
 		MessageUtils.send(connection, message);
 	}

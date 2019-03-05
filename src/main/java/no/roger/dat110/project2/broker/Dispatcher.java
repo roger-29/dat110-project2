@@ -88,66 +88,55 @@ public class Dispatcher extends Stopable {
 		Logger.log("onConnect:" + msg.toString());
 
 		storage.addClientSession(user, connection);
-
 	}
 
 	// called by dispatch upon receiving a disconnect message 
 	public void onDisconnect(DisconnectMsg msg) {
-
-		String user = msg.getUser();
-
 		Logger.log("onDisconnect:" + msg.toString());
 
-		storage.removeClientSession(user);
-
+		storage.removeClientSession(msg.getUser());
 	}
 
 	public void onCreateTopic(CreateTopicMsg msg) {
-
 		Logger.log("onCreateTopic:" + msg.toString());
 
-		// TODO: create the topic in the broker storage 
-		
-		throw new RuntimeException("not yet implemented");
-
+		storage.createTopic(msg.getTopic());
 	}
 
 	public void onDeleteTopic(DeleteTopicMsg msg) {
-
 		Logger.log("onDeleteTopic:" + msg.toString());
 
-		// TODO: delete the topic from the broker storage
-		
-		throw new RuntimeException("not yet implemented");
+		storage.deleteTopic(msg.getTopic());
 	}
 
 	public void onSubscribe(SubscribeMsg msg) {
-
 		Logger.log("onSubscribe:" + msg.toString());
 
-		// TODO: subscribe user to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
+		String topic = msg.getTopic();
+		String user = msg.getUser();
+
+		storage.addSubscriber(user, topic);	
 	}
 
 	public void onUnsubscribe(UnsubscribeMsg msg) {
-
 		Logger.log("onUnsubscribe:" + msg.toString());
 
-		// TODO: unsubscribe user to the topic
+		String topic = msg.getTopic();
+		String user = msg.getUser();
 		
-		throw new RuntimeException("not yet implemented");
-
+		storage.removeSubscriber(user, topic);
 	}
 
 	public void onPublish(PublishMsg msg) {
-
 		Logger.log("onPublish:" + msg.toString());
 
-		// TODO: publish the message to clients subscribed to the topic
-		
-		throw new RuntimeException("not yet implemented");
-		
+		String topic = msg.getTopic();
+
+		Set<String> subscribers = storage.getSubscribers(topic);
+
+		for (String s : subscribers) {
+			ClientSession cs = storage.getSession(s);
+			cs.send(msg);
+		}
 	}
 }
