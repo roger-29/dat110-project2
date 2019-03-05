@@ -14,6 +14,8 @@ Build library with `gradle build`.
 
 Run tests with `gradle test`.
 
+*Note:* Some tests might not work with Java 11.
+
 ### ChApp
 
 Enter directory with `cd ChApp`
