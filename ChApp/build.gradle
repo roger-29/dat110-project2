@@ -36,7 +36,7 @@ dependencies {
 }
 
 javafx {
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base', 'javafx.media', 'javafx.swing', 'javafx.web' ]
 }
 
 // Define the main class for the application
