@@ -9,6 +9,8 @@
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
+
+	id 'application'
 }
 
 repositories {
@@ -25,3 +27,6 @@ dependencies {
 	// Use JUnit test framework
 	testImplementation 'junit:junit:4.12'
 }
+
+// Define the main class for the application
+mainClassName = 'no.roger.dat110.project2.broker.BrokerServer'
