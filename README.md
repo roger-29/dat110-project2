@@ -2,7 +2,7 @@
 
 # DAT110 Project 2
 
-The second student project in the DAT110 subject. Gradle is used for dependency management and building.
+The second student project in the DAT110 subject. Gradle is used for dependency management and building. Task overview can be found [here](https://github.com/selabhvl/dat110public/blob/master/week8/week8.md).
 
 ## Information
 
