@@ -6,6 +6,18 @@ The second student project in the DAT110 subject. Gradle is used for dependency 
 
 ## Information
 
+### Project 2 library
+
+Enter directory with `cd Project2`
+
+Build library with `gradle build`.
+
+Run tests with `gradle test`.
+
+### ChApp
+
+Enter directory with `cd ChApp`
+
 Run application with `gradle run`.
 
 Run tests with `gradle test`.

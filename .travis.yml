@@ -6,5 +6,12 @@ jdk:
   - oraclejdk8
 
 script:
+  - cd Project2
+  - ./gradlew build
+  - ./gradlew test
+
+  - cd ..
+
+  - cd ChApp
   - ./gradlew build
   - ./gradlew test
