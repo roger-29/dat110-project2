@@ -8,3 +8,6 @@
  */
 
 rootProject.name = 'ChApp'
+
+include ":project2"
+project(":project2").projectDir = file("../Project2")

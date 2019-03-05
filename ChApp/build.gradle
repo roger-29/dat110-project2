@@ -26,7 +26,10 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+	// Project 2
+	compile project(":project2")
 }
 
 // Define the main class for the application
-mainClassName = 'ChApp.App'
+mainClassName = 'no.roger.dat110.ChApp.App'
