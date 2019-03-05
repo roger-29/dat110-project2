@@ -14,7 +14,7 @@ Build library with `gradle build`.
 
 Run tests with `gradle test`.
 
-*Note:* Some tests might not work with Java 11.
+Run BrokerServer with `gradle run`.
 
 ### ChApp
 
